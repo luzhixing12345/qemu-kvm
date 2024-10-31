@@ -18,5 +18,8 @@ qemu:
 - contribute: 10
 kvm:
 - intro: 1
+- pml: 2
+- libvirt: 3
+- api: 4
 cxl:
 - intro: 1

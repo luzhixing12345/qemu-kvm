@@ -1,0 +1,4 @@
+__pycache__
+kvm
+*.S
+*.o

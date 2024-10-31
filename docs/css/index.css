@@ -151,7 +151,7 @@ blockquote {
 .markdown-body table,
 .markdown-body ul {
     margin-top: 0;
-    margin-bottom: 8px;
+    margin-bottom: 16px;
     cursor: pointer;
 }
 
@@ -201,13 +201,6 @@ blockquote {
 }
 
 
-
-.markdown-body ul {
-    padding-left: 0;
-    margin-top: 0;
-    margin-bottom: 0;
-}
-
 /* .markdown-body ol ol,
 .markdown-body ul ol {
     list-style-type: lower-roman;
@@ -220,13 +213,10 @@ blockquote {
     list-style-type: lower-alpha;
 } */
 
-.markdown-body ul {
+.markdown-body ul,
+.markdown-body ol {
     margin-top: 0;
     margin-bottom: 8px;
-}
-
-.markdown-body ol,
-.markdown-body ul {
     padding-left: 2em;
 }
 
@@ -243,7 +233,7 @@ blockquote {
 }
 
 .markdown-body li>p {
-    margin-top: 16px;
+    margin-top: 10px;
 }
 
 .markdown-body li+li {
@@ -428,6 +418,11 @@ ul>li>ul>li {
     display: flex;
     justify-content: left;
     margin-bottom: 5px;
+}
+
+.markdown-body blockquote p {
+    margin-bottom: 5px;
+    margin-top: 5px;
 }
 
 .changeMode {

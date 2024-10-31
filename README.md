@@ -1,4 +1,4 @@
-# qemu
+# qemu-kvm
 
 本项目为笔者对于虚拟化技术的学习笔记, 包括 
 
@@ -7,7 +7,7 @@
 
 观前提示: 对于 qemu 的源码参考并不具有时效性, 笔者正在积极参与 qemu 社区并改进源代码, 阅读时最新的版本为 v9.0.1, commit hash `7914bd`
 
-在线文档: [qemu document](https://luzhixing12345.github.io/qemu/)
+在线文档: [qemu-kvm document](https://luzhixing12345.github.io/qemu-kvm/)
 
 ## 参考
 

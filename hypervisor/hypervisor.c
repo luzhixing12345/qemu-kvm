@@ -133,12 +133,18 @@ VM *kvm_init(uint8_t code[], size_t len) {
     if (kvmfd < 0)
         pexit("open(/dev/kvm)");
 
+    // the KVM_API_VERSION last changed to 12 with Linux 2.6.22 in April 2007, and got locked to that as a stable
+    // interface in 2.6.24; since then, KVM API changes occur only via backward-compatible extensions (like all other
+    // kernel APIs). So, your application should first confirm that it has version 12
+    // https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/commit/?id=2ff81f70b56dc1cdd3bf2f08414608069db6ef1a
     int api_ver = ioctl(kvmfd, KVM_GET_API_VERSION, 0);
     if (api_ver < 0)
         pexit("KVM_GET_API_VERSION");
     if (api_ver != KVM_API_VERSION) {
         error("Got KVM api version %d, expected %d\n", api_ver, KVM_API_VERSION);
     }
+
+    
     int vmfd = ioctl(kvmfd, KVM_CREATE_VM, 0);
     if (vmfd < 0)
         pexit("ioctl(KVM_CREATE_VM)");
