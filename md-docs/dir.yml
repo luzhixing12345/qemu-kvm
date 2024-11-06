@@ -18,8 +18,12 @@ qemu:
 - contribute: 10
 kvm:
 - intro: 1
-- pml: 2
-- libvirt: 3
-- api: 4
+- init: 2
+- pml: 3
+- libvirt: 4
+- api: 5
+- ept-trace: 6
+- qemu: 7
+- slot: 8
 cxl:
 - intro: 1

@@ -73,6 +73,47 @@ static int vmx_vcpu_create(struct kvm_vcpu *vcpu)
 }
 ```
 
+写入时调用 nested_vmx_write_pml_buffer, 当 pml index 满后设置 pml_full 为 true
+
+```c{12}
+static int nested_vmx_write_pml_buffer(struct kvm_vcpu *vcpu, gpa_t gpa)
+{
+	struct vmcs12 *vmcs12;
+	struct vcpu_vmx *vmx = to_vmx(vcpu);
+	gpa_t dst;
+
+	if (WARN_ON_ONCE(!is_guest_mode(vcpu)))
+		return 0;
+
+	if (WARN_ON_ONCE(vmx->nested.pml_full))
+		return 1;
+
+	/*
+	 * Check if PML is enabled for the nested guest. Whether eptp bit 6 is
+	 * set is already checked as part of A/D emulation.
+	 */
+	vmcs12 = get_vmcs12(vcpu);
+	if (!nested_cpu_has_pml(vmcs12))
+		return 0;
+
+	if (vmcs12->guest_pml_index >= PML_ENTITY_NUM) {
+		vmx->nested.pml_full = true;
+		return 1;
+	}
+
+	gpa &= ~0xFFFull;
+	dst = vmcs12->pml_address + sizeof(u64) * vmcs12->guest_pml_index;
+
+	if (kvm_write_guest_page(vcpu->kvm, gpa_to_gfn(dst), &gpa,
+				 offset_in_page(dst), sizeof(gpa)))
+		return 0;
+
+	vmcs12->guest_pml_index--;
+
+	return 0;
+}
+```
+
 当 pml buffer 已满时会触发 VM exit, 此时由操作系统接管获取到 pml_buffer 中的值
 
 ```c

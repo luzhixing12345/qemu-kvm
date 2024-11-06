@@ -11,3 +11,4 @@ kvm api 非常之多, 详见 [kvm api](https://docs.kernel.org/virt/kvm/api.html
 
 - [Using the KVM API](https://lwn.net/Articles/658511/)
 - [kernel api.txt](https://kernel.org/doc/Documentation/virtual/kvm/api.txt)
+- [use-kvm-api-write-emulator](https://soulxu.github.io/blog/2014/08/11/use-kvm-api-write-emulator/)

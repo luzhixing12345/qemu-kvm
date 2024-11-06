@@ -1,5 +1,3 @@
-
-
 #include <asm/kvm.h>
 #include <err.h>
 #include <fcntl.h>
@@ -11,21 +9,24 @@
 #include <sys/mman.h>
 
 int main(int argc, char **argv) {
-    const unsigned code[] = {
-        // write "Hello" to port 0xf1
-        0xb0, 0x48,  // mov    $0x48, %al                     // H
-        0xe6, 0xf1,  // out    %al, $0xf1
-        0xb0, 0x65,  // mov    $0x65, %al                     // e
-        0xe6, 0xf1,  // out    %al, $0xf1
-        0xb0, 0x6c,  // mov    $0x6c, %al                     // l
-        0xe6, 0xf1,  // out    %al, $0xf1
-        0xb0, 0x6c,  // mov    $0x6c, %al                     // l
-        0xe6, 0xf1,  // out    %al, $0xf1
-        0xb0, 0x6f,  // mov    $0x6f, %al                     // o
-        0xe6, 0xf1,  // out    %al, $0xf1
-        0xb0, 0x0a,  // mov    $0xa, %al                      // \n
-        0xe6, 0xf1,  // out    %al, $0xf1
-        0xf4,        // hlt
+    const uint8_t code[] = {
+        0x66,
+        0xba,
+        0xf8,
+        0x03, /* mov $0x3f8, %dx */
+        0xb0,
+        0x03,
+        0xb3,
+        0x01,
+        0x00,
+        0xd8, /* add %bl, %al */
+        0x04,
+        0x30, /* add $'0', %al */
+        0xee, /* out %al, (%dx) */
+        0xb0,
+        0x0a, /* mov $'\n', %al */
+        0xee, /* out %al, (%dx) */
+        0xf4, /* hlt */
     };
 
     int kvm_fd = open("/dev/kvm", O_RDWR | O_CLOEXEC);
@@ -49,7 +50,7 @@ int main(int argc, char **argv) {
     memcpy(mem, code, sizeof(code));
     struct kvm_userspace_memory_region region = {
         .slot = 0,
-        .guest_phys_addr = 0x1000,
+        .guest_phys_addr = 0,
         .memory_size = 0x1000,
         .userspace_addr = (uint64_t)mem,
     };
@@ -66,9 +67,7 @@ int main(int argc, char **argv) {
     ioctl(vcpufd, KVM_SET_SREGS, &sregs);
 
     struct kvm_regs regs = {
-        .rip = 0x1000,
-        // .rax = 1,
-        // .rbx = 3,
+        .rip = 0,
         .rflags = 0x2,
     };
     ioctl(vcpufd, KVM_SET_REGS, &regs);

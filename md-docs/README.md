@@ -7,6 +7,8 @@
   - 深度探索Linux系统虚拟化:原理与实现 (王柏生  谢广军) 
   - NewBluePill深入理解硬件虚拟机 (于淼  戚正伟)
 - 技术博客
+  - [享乐主](https://blog.csdn.net/huang987246510?type=blog) 绝佳
+  - [KVM](https://royhunter.github.io/categories/KVM/) 绝佳
   - [虚拟化 技术博客](https://github.com/zhangjaycee/real_tech/wiki/virtualcatalog)
   - [虚拟化 技术博客](https://www.junmajinlong.com/tags/Virtualization/)
   - [KVM 虚拟化详解](https://zhuanlan.zhihu.com/p/105499858)
