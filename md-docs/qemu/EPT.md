@@ -32,6 +32,7 @@
 >
 > [paper](https://www.usenix.org/legacy/event/osdi10/tech/full_papers/Ben-Yehuda.pdf) [video](https://www.usenix.org/conference/osdi10/turtles-project-design-and-implementation-nested-virtualization)
 
+![20241108161015](https://raw.githubusercontent.com/learner-lu/picbed/master/20241108161015.png)
 
 ## 参考
 

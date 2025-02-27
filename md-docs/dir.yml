@@ -16,6 +16,8 @@ qemu:
 - machine: 8
 - args: 9
 - contribute: 10
+- ivshmem: 11
+- mm: 12
 kvm:
 - intro: 1
 - init: 2
